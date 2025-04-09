@@ -25,11 +25,12 @@ public class ArquivoService {
                     String combustivel = data[3].trim();
 
                     char ultimoNum = placa.charAt(placa.length() - 1);
+                    System.out.println("Placa: " + placa + " Final: " + ultimoNum);
+                    System.out.println("Restricao[0]: " + restricaoPlacas[0] + " Restricao[1]: " + restricaoPlacas[1]);
 
                     if (ultimoNum == restricaoPlacas[0] || ultimoNum == restricaoPlacas[1]) {
-                        listaVeiculos.inserir_fim(new Veiculo(placa, marca, modelo, combustivel, "Proibido"));
-                    } else {
-                        listaVeiculos.inserir_fim(new Veiculo(placa, marca, modelo, combustivel, "Permitido"));
+                        System.out.println("Carregando veiculo...");
+                        listaVeiculos.inserir_fim(new Veiculo(placa, marca, modelo, combustivel));
                     }
 
                 }

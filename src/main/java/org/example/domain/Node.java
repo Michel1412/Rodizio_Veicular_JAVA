@@ -3,7 +3,6 @@ package org.example.domain;
 public class Node {
 
     private Veiculo veiculo;
-
     private Node prox;
 
     public Node(Veiculo veiculo) {

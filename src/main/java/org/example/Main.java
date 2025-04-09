@@ -11,20 +11,36 @@ public class Main {
         ListaCircularService listaVeiculos = new ListaCircularService();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Digite o dia da semana:");
-        System.out.println("1 - Segunda-feira\n2 - Terça-feira\n3 - Quarta-feira\n4 - Quinta-feira\n5 - Sexta-feira");
-        System.out.print("Opção: ");
-        int day = scanner.nextInt();
+        System.out.print("Deseja caregar com base em:\n1 - Dia da semana\n2 - Final da Placa\nOpcao: ");
+        int filter = scanner.nextInt();
         scanner.nextLine();
 
-        char[] restricaoPlacas = RodizioService.getRestricaoByNumDiaDaSemana(day);
+        switch (filter) {
+            case 1:
+                char[] filtroPlacas = RodizioService.getRestricaoByNumDiaDaSemana();
 
-        if (restricaoPlacas == null) {
-            System.out.println("Dia inválido.");
-            return;
+                if (filtroPlacas == null) {
+                    System.out.println("Dia inválido.");
+                    return;
+                }
+
+                ArquivoService.carregarVeiculos(ArquivoService.absolutPath, listaVeiculos, filtroPlacas);
+                break;
+            case 2:
+                char[] filtroFinalPlacas = RodizioService.getFilterByFinalPlaca();
+
+                if (filtroFinalPlacas == null) {
+                    System.out.println("Final da placa Invalido.");
+                    return;
+                }
+
+                ArquivoService.carregarVeiculos(ArquivoService.absolutPath, listaVeiculos, filtroFinalPlacas);
+                break;
+            default:
+                System.out.println("Opcao Invalida.");
+
         }
 
-        ArquivoService.carregarVeiculos(ArquivoService.absolutPath, listaVeiculos, restricaoPlacas);
 
         if (listaVeiculos.isEmpty()) {
             System.out.println("Nenhum veículo está afetado pelo rodízio.");
@@ -37,7 +53,7 @@ public class Main {
             Veiculo veiculoAtual = listaVeiculos.getAtual();
             System.out.println(veiculoAtual);
             System.out.println("Escolha uma opção:");
-            System.out.println("1 - Próximo veículo\n2 - Anterior\n0 - Sair");
+            System.out.println("1 - Próximo veículo\n0 - Sair");
 
             System.out.print("Opção: ");
             int option = scanner.nextInt();
@@ -46,9 +62,6 @@ public class Main {
             switch (option) {
                 case 1:
                     listaVeiculos.getProx();
-                    break;
-                case 2:
-                    listaVeiculos.getAnterior();
                     break;
                 default:
                     if (option != 0) {

@@ -42,24 +42,4 @@ public class ListaCircularService {
     public boolean isEmpty() {
         return this.inicio == null;
     }
-
-    public Veiculo getAnterior() {
-        if (this.atual == null) {
-            return null;
-        }
-
-        if (this.atual == this.inicio) {
-            this.atual = this.fim;
-        } else {
-            Node aux = this.inicio;
-
-            while (this.atual != aux.getProx()) {
-                aux = aux.getProx();
-            }
-
-            this.atual = aux;
-        }
-
-        return this.atual.getVeiculo();
-    }
 }
